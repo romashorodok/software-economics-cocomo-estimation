@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useReducer, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import {
   Select,
   SelectContent,
@@ -17,7 +17,6 @@ import {
   FormItem,
   FormMessage,
   FormLabel,
-  FormDescription,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import './App.css'
@@ -118,7 +117,7 @@ interface ICocomoEstimator {
 }
 
 function round(num: number) {
-  return Math.ceil(num * 100) / 100;
+  return Math.round(num * 100) / 100;
 }
 
 class CocomoBasic implements ICocomoEstimator {
@@ -495,21 +494,21 @@ const intermediateCocomoAppFormSchema = z.object({
     message: "Lines of code must be at least 1 digit",
   })),
   costDrivers: z.object({
-    RELY: z.preprocess((val) => parseFloat(val as string), z.number()),
-    DATA: z.preprocess((val) => parseFloat(val as string), z.number()),
-    CPLX: z.preprocess((val) => parseFloat(val as string), z.number()),
-    TIME: z.preprocess((val) => parseFloat(val as string), z.number()),
-    STOR: z.preprocess((val) => parseFloat(val as string), z.number()),
-    VIRT: z.preprocess((val) => parseFloat(val as string), z.number()),
-    TURN: z.preprocess((val) => parseFloat(val as string), z.number()),
-    ACAP: z.preprocess((val) => parseFloat(val as string), z.number()),
-    AEXP: z.preprocess((val) => parseFloat(val as string), z.number()),
-    PCAP: z.preprocess((val) => parseFloat(val as string), z.number()),
-    VEXP: z.preprocess((val) => parseFloat(val as string), z.number()),
-    LEXP: z.preprocess((val) => parseFloat(val as string), z.number()),
-    MODP: z.preprocess((val) => parseFloat(val as string), z.number()),
-    TOOL: z.preprocess((val) => parseFloat(val as string), z.number()),
-    SCED: z.preprocess((val) => parseFloat(val as string), z.number()),
+    RELY: z.preprocess((val) => parseFloat(val as string), z.number().nullable()),
+    DATA: z.preprocess((val) => parseFloat(val as string), z.number().nullable()),
+    CPLX: z.preprocess((val) => parseFloat(val as string), z.number().nullable()),
+    TIME: z.preprocess((val) => parseFloat(val as string), z.number().nullable()),
+    STOR: z.preprocess((val) => parseFloat(val as string), z.number().nullable()),
+    VIRT: z.preprocess((val) => parseFloat(val as string), z.number().nullable()),
+    TURN: z.preprocess((val) => parseFloat(val as string), z.number().nullable()),
+    ACAP: z.preprocess((val) => parseFloat(val as string), z.number().nullable()),
+    AEXP: z.preprocess((val) => parseFloat(val as string), z.number().nullable()),
+    PCAP: z.preprocess((val) => parseFloat(val as string), z.number().nullable()),
+    VEXP: z.preprocess((val) => parseFloat(val as string), z.number().nullable()),
+    LEXP: z.preprocess((val) => parseFloat(val as string), z.number().nullable()),
+    MODP: z.preprocess((val) => parseFloat(val as string), z.number().nullable()),
+    TOOL: z.preprocess((val) => parseFloat(val as string), z.number().nullable()),
+    SCED: z.preprocess((val) => parseFloat(val as string), z.number().nullable()),
   }),
 })
 
@@ -587,7 +586,7 @@ function IntermediateCocomoApp() {
                         defaultValue={field.value?.toString()}
                       >
                         <SelectTrigger className="">
-                          <SelectValue placeholder={"N/A"} />
+                          <SelectValue placeholder={"N/A"} defaultValue={null} />
                         </SelectTrigger>
                         <SelectContent>
                           {Object.entries(driver.rating).map(([key, value]) => (
